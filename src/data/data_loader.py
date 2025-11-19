@@ -1,30 +1,16 @@
-"""
-Data loading and generation utilities
-"""
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import random
 
-
-def generate_sales_data(n_records=10000, seed=42):
-    """
-    Generate synthetic sales data for Kenya market
-    
-    Args:
-        n_records: Number of records to generate
-        seed: Random seed for reproducibility
-        
-    Returns:
-        pd.DataFrame: Generated sales data
-    """
-    np.random.seed(seed)
-    random.seed(seed)
+def generate_sales_data(n_records=10000):
+    """Generate synthetic sales data for Kenya market"""
     
     # Kenyan cities and regions
     cities = ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret']
     products = ['Tea', 'Cooking Oil', 'Flour', 'Sugar', 'Rice', 'Milk']
     
+    np.random.seed(42)
     start_date = datetime(2022, 1, 1)
     
     data = []
@@ -46,17 +32,4 @@ def generate_sales_data(n_records=10000, seed=42):
     
     df = pd.DataFrame(data)
     df['revenue'] = df['quantity'] * df['unit_price']
-    
     return df
-
-
-if __name__ == "__main__":
-    # Generate and save sample data
-    print("Generating sales data...")
-    df = generate_sales_data(n_records=10000)
-    
-    output_path = "../../data/raw/sales_data.csv"
-    df.to_csv(output_path, index=False)
-    print(f"Data saved to {output_path}")
-    print(f"Shape: {df.shape}")
-    print(f"\nSample:\n{df.head()}")
